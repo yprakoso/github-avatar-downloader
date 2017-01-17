@@ -21,13 +21,12 @@ getRepoContributors("jquery", "jquery", function(err, result, body) {
   var data = JSON.parse(body);
   var avatars = []
   data.forEach(function(element){
-    avatars.push(element.avatar_url);
+    // console.log(element);
+    downloadImageByURL(element.avatar_url, element.login);
   });
-  console.log(avatars);
+  // console.log(avatars);
 });
 
 function downloadImageByURL(url, filePath) {
-  request.get(url).pipe(fs.createWriteStream('filename.jpg'));
+  request.get(url).pipe(fs.createWriteStream('./avatars/' + filePath + '.jpg'));
 }
-
-downloadImageByURL("https://avatars2.githubusercontent.com/u/2741?v=3&s=466", "avatars/kvirani.jpg")
